@@ -2,11 +2,13 @@ package com.example.simpleweather;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +18,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FrameLayout frameLayout = findViewById(R.id.container);
+        AnimationDrawable animationDrawable = (AnimationDrawable) frameLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.start();
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()

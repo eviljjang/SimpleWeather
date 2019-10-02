@@ -12,7 +12,7 @@ import java.net.URL;
 
 public class RemoteFetch {
     private static final String OPEN_WEATHER_MAP_API =
-            "http://api.openweathermap.org/data/2.5/weather?q=%s&units=metric";
+            "https://api.openweathermap.org/data/2.5/weather?q=%s&units=metric";
 
     public static JSONObject getJSON(Context context, String city){
         try {
@@ -20,7 +20,7 @@ public class RemoteFetch {
             HttpURLConnection connection =
                     (HttpURLConnection)url.openConnection();
 
-            connection.addRequestProperty("06abd15896d509385ac76db279aab61b",
+            connection.addRequestProperty("x-api-key",
                     context.getString(R.string.open_weather_maps_app_id));
 
             BufferedReader reader = new BufferedReader(
@@ -32,6 +32,8 @@ public class RemoteFetch {
                 json.append(tmp).append("\n");
             reader.close();
 
+            Log.d("myLogs", connection.getResponseMessage());
+
             JSONObject data = new JSONObject(json.toString());
 
             // This value will be 404 if the request was not
@@ -42,6 +44,7 @@ public class RemoteFetch {
 
             return data;
         }catch(Exception e){
+            Log.d("myLogs", "2");
             return null;
         }
     }
